@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:text="progress displayed here"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textViewProgress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"></TextView>
+    <TextView android:text="action displayed here"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textViewAction"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"></TextView>
+    <SeekBar android:id="@+id/seekBarGreen" android:max="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></SeekBar>
+    <SeekBar android:id="@+id/seekBarRed" android:max="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></SeekBar>
+    <SeekBar android:id="@+id/seekBarBlue" android:max="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></SeekBar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Change Red color"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/seekBarGreen"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Change Green color"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textViewProgress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Change Blue color"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/seekBarRed"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
