@@ -41,10 +41,11 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         textAction = (TextView)rootView.findViewById(R.id.textViewAction);
 
 
+        espConnection=new ConnectorESP("192.168.150.10");
 
         //setup ESP connection
         try{
-            espConnection=new ConnectorESP("192.168.150.10");
+            espConnection.establishConnection();
 
         } catch(UnknownHostException ex) {
             Toast.makeText(getActivity(), "Filed - UnknownHostException", Toast.LENGTH_SHORT).show();
@@ -60,7 +61,7 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         }
 
         //setup esp variables
-        if(espConnection.getServerHandler() != null) {
+        if(espConnection.isConnectionEstablished()) {
             espConnection.getServerHandler().println("R=3");
             espConnection.getServerHandler().println("G=2");
             espConnection.getServerHandler().println("B=1");
@@ -93,7 +94,7 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         textAction.setText("ended tracking touch");
 
         int val =(progressValue*1023)/100;
-        if(espConnection.getServerHandler() != null) {
+        if(espConnection.isConnectionEstablished()) {
             if (seekBar.getId() == R.id.seekBarGreen)
                 espConnection.getServerHandler().println("pwm.setduty(G," + val + ")");
             else if (seekBar.getId() == R.id.seekBarBlue)

@@ -17,18 +17,23 @@ import java.net.UnknownHostException;
 public class ConnectorESP {
 
     private int serverPort = 2323;
-    private InetAddress host;
-    private PrintWriter toServer;
-    private BufferedReader fromServer;
-    private Socket socket;
+    private InetAddress host = null;
+    private PrintWriter toServer = null;
+    private BufferedReader fromServer = null;
+    private Socket socket = null;
+    private String ipAddress = null;
 
-    public ConnectorESP(String ip) throws SocketException, InterruptedException, UnknownHostException, IOException {
+    public ConnectorESP(String ip) {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        this.ipAddress= ip;
+    }
 
-        host = InetAddress.getByName("192.168.150.10");
+    public void establishConnection() throws SocketException, InterruptedException, UnknownHostException, IOException {
+
+        host = InetAddress.getByName(this.ipAddress);
         System.out.println("Connecting to server on port " + serverPort);
         socket = new Socket(host,serverPort);
 
@@ -43,6 +48,10 @@ public class ConnectorESP {
         System.out.println("Client received: " + line + " from Server");
     }
 
+    public boolean isConnectionEstablished(){
+
+        return socket!=null;
+    }
     public void setPort(int portNumber){
 
         serverPort=portNumber;
