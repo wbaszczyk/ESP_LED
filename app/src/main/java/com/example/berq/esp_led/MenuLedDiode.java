@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -77,8 +78,14 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
             toServer.println("pwm.setup(G, 100, 1)");
             toServer.println("pwm.setup(B, 100, 1)");
 
-        } catch(UnknownHostException ex) { ex.printStackTrace(); }
-        catch(IOException e){ e.printStackTrace(); }
+        } catch(UnknownHostException ex) {
+            Toast.makeText(getActivity(), "Filed - UnknownHostException", Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
+        }
+        catch(IOException e){
+            Toast.makeText(getActivity(), "Filed - IOException", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
 
         return rootView;
     }
@@ -103,11 +110,15 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         textAction.setText("ended tracking touch");
 
         int val =(progressValue*1023)/100;
-        if(seekBar.getId()==R.id.seekBarGreen)
-            toServer.println("pwm.setduty(G,"+val+")");
-        else if(seekBar.getId()==R.id.seekBarBlue)
-            toServer.println("pwm.setduty(B,"+val+")");
-        else if(seekBar.getId()==R.id.seekBarRed)
-            toServer.println("pwm.setduty(R,"+val+")");
+        if(toServer!= null) {
+            if (seekBar.getId() == R.id.seekBarGreen)
+                toServer.println("pwm.setduty(G," + val + ")");
+            else if (seekBar.getId() == R.id.seekBarBlue)
+                toServer.println("pwm.setduty(B," + val + ")");
+            else if (seekBar.getId() == R.id.seekBarRed)
+                toServer.println("pwm.setduty(R," + val + ")");
+        }
+        else
+            Toast.makeText(getActivity(), "Filed to send message to ESP", Toast.LENGTH_SHORT).show();
     }
 }

@@ -51,23 +51,23 @@ public class LedBrightness extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
 
-        Fragment objf=null;
+        Fragment objFragment=null;
 
         switch (position){
             case 0:
-                objf=new MenuLedDiode();
+                objFragment=new MenuLedDiode();
                 break;
             case 1:
-                objf=new Detector();
+                objFragment=new Detector();
                 break;
             case 2:
-                objf=new MenuLedDiode();
+                objFragment=new MenuLedDiode();
                 break;
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, objf)
+                .replace(R.id.container, objFragment)
                 .commit();
     }
 
