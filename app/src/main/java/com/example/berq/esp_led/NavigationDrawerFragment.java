@@ -22,6 +22,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -29,6 +32,7 @@ import android.widget.Toast;
  */
 public class NavigationDrawerFragment extends Fragment {
 
+    ConnectorESP espConnection;
     /**
      * Remember the position of the selected item.
      */
@@ -73,6 +77,26 @@ public class NavigationDrawerFragment extends Fragment {
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
+        }
+
+
+
+        espConnection=new ConnectorESP("192.168.150.10");
+        //setup ESP connection
+        try{
+            espConnection.establishConnection();
+
+        } catch(UnknownHostException ex) {
+            Toast.makeText(getActivity(), "Filed - UnknownHostException", Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
+        }
+        catch (InterruptedException e) {
+            Toast.makeText(getActivity(), "Filed - InterruptedException", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            Toast.makeText(getActivity(), "Filed - IOException", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
 
         // Select either the default item (0) or the last selected item.

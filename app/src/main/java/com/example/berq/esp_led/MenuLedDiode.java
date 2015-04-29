@@ -10,75 +10,67 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 
 /**
  * Created by berq on 15.04.15.
  */
 public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
-    ConnectorESP espConnection;
 
-    private int progressValue=0;
+    private int progressValue = 0;
 
     private View rootView;
     private SeekBar bar;
-    private TextView textProgress,textAction;
+    private TextView textProgress, textAction;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.menu_led_diode, container, false);
 
-        bar = (SeekBar)rootView.findViewById(R.id.seekBarGreen); // make seekbar object
+        bar = (SeekBar) rootView.findViewById(R.id.seekBarGreen); // make seekbar object
         bar.setOnSeekBarChangeListener(this);
-        bar = (SeekBar)rootView.findViewById(R.id.seekBarBlue); // make seekbar object
+        bar = (SeekBar) rootView.findViewById(R.id.seekBarBlue); // make seekbar object
         bar.setOnSeekBarChangeListener(this);
-        bar = (SeekBar)rootView.findViewById(R.id.seekBarRed); // make seekbar object
+        bar = (SeekBar) rootView.findViewById(R.id.seekBarRed); // make seekbar object
         bar.setOnSeekBarChangeListener(this);
-        textProgress = (TextView)rootView.findViewById(R.id.textViewProgress);
-        textAction = (TextView)rootView.findViewById(R.id.textViewAction);
+        textProgress = (TextView) rootView.findViewById(R.id.textViewProgress);
+        textAction = (TextView) rootView.findViewById(R.id.textViewAction);
 
-
-        espConnection=new ConnectorESP("192.168.150.10");
-
-        //setup ESP connection
-        try{
-            espConnection.establishConnection();
-
-        } catch(UnknownHostException ex) {
-            Toast.makeText(getActivity(), "Filed - UnknownHostException", Toast.LENGTH_SHORT).show();
-            ex.printStackTrace();
-        }
-        catch (InterruptedException e) {
-            Toast.makeText(getActivity(), "Filed - InterruptedException", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-        catch(IOException e) {
-            Toast.makeText(getActivity(), "Filed - IOException", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
 
         //setup esp variables
-        if(espConnection.isConnectionEstablished()) {
-            espConnection.getServerHandler().println("R=3");
-            espConnection.getServerHandler().println("G=2");
-            espConnection.getServerHandler().println("B=1");
-            espConnection.getServerHandler().println("pwm.setup(R, 100, 1)");
-            espConnection.getServerHandler().println("pwm.setup(G, 100, 1)");
-            espConnection.getServerHandler().println("pwm.setup(B, 100, 1)");
-        }
-        else
-            Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    establish_PWM();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
         return rootView;
+    }
+
+    private void establish_PWM() throws InterruptedException {
+
+        if (ConnectorESP.isConnectionEstablished()) {
+            ConnectorESP.sendESPCommand("R=3");
+            ConnectorESP.sendESPCommand("G=2");
+            ConnectorESP.sendESPCommand("B=1");
+            ConnectorESP.sendESPCommand("pwm.setup(R, 100, 1)");
+            ConnectorESP.sendESPCommand("pwm.setup(G, 100, 1)");
+            ConnectorESP.sendESPCommand("pwm.setup(B, 100, 1)");
+        } else
+            Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        progressValue=progress;
-        textProgress.setText("The value is: "+progress);
+        progressValue = progress;
+        textProgress.setText("The value is: " + progress);
         textAction.setText("changing");
     }
 
@@ -93,16 +85,18 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
 
         textAction.setText("ended tracking touch");
 
-        int val =(progressValue*1023)/100;
-        if(espConnection.isConnectionEstablished()) {
+        int val = (progressValue * 1023) / 100;
+
+
+        if (ConnectorESP.isConnectionEstablished()) {
             if (seekBar.getId() == R.id.seekBarGreen)
-                espConnection.getServerHandler().println("pwm.setduty(G," + val + ")");
+                ConnectorESP.getServerHandler().println("pwm.setduty(G," + val + ")");
             else if (seekBar.getId() == R.id.seekBarBlue)
-                espConnection.getServerHandler().println("pwm.setduty(B," + val + ")");
+                ConnectorESP.getServerHandler().println("pwm.setduty(B," + val + ")");
             else if (seekBar.getId() == R.id.seekBarRed)
-                espConnection.getServerHandler().println("pwm.setduty(R," + val + ")");
-        }
-        else
+                ConnectorESP.getServerHandler().println("pwm.setduty(R," + val + ")");
+        } else
             Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
+
     }
 }

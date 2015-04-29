@@ -18,9 +18,9 @@ public class ConnectorESP {
 
     private int serverPort = 2323;
     private InetAddress host = null;
-    private PrintWriter toServer = null;
-    private BufferedReader fromServer = null;
-    private Socket socket = null;
+    private static PrintWriter toServer = null;
+    private static BufferedReader fromServer = null;
+    private static Socket socket = null;
     private String ipAddress = null;
 
     public ConnectorESP(String ip) {
@@ -48,7 +48,7 @@ public class ConnectorESP {
         System.out.println("Client received: " + line + " from Server");
     }
 
-    public boolean isConnectionEstablished(){
+    public static boolean isConnectionEstablished(){
 
         return socket!=null;
     }
@@ -56,10 +56,17 @@ public class ConnectorESP {
 
         serverPort=portNumber;
     }
-    public PrintWriter getServerHandler(){
+
+    public static void sendESPCommand(String commandLua) throws InterruptedException {
+
+        getServerHandler().println(commandLua);
+        Thread.sleep(500);
+    }
+
+    public static PrintWriter getServerHandler(){
         return toServer;
     }
-    public BufferedReader getServerReader(){
+    public static BufferedReader getServerReader(){
         return fromServer;
     }
 }
