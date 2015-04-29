@@ -79,5 +79,6 @@ public class Detector extends Fragment {
             ConnectorESP.sendESPCommand("end");
             //example using - write_reg(0x50,0x00,0x00)
         }
+        //else Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
     }
 }

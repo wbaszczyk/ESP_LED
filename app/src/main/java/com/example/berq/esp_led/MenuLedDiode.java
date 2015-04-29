@@ -62,8 +62,8 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
             ConnectorESP.sendESPCommand("pwm.setup(R, 100, 1)");
             ConnectorESP.sendESPCommand("pwm.setup(G, 100, 1)");
             ConnectorESP.sendESPCommand("pwm.setup(B, 100, 1)");
-        } else
-            Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
+        }
+        //else Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
     }
 
     @Override

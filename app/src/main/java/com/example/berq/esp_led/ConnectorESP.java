@@ -60,7 +60,7 @@ public class ConnectorESP {
     public static void sendESPCommand(String commandLua) throws InterruptedException {
 
         getServerHandler().println(commandLua);
-        Thread.sleep(500);
+        Thread.sleep(200);
     }
 
     public static PrintWriter getServerHandler(){
