@@ -50,14 +50,11 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         textProgress = (TextView)rootView.findViewById(R.id.textViewProgress);
         textAction = (TextView)rootView.findViewById(R.id.textViewAction);
 
-
-
-
-
-
+        //setup Policy
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //setup ESP connection
         try{
             host = InetAddress.getByName("192.168.150.10");
             System.out.println("Connecting to server on port " + serverPort);
@@ -72,6 +69,7 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
             String line = fromServer.readLine();
             System.out.println("Client received: " + line + " from Server");
 
+            //setup esp variables
             toServer.println("R=3");
             toServer.println("G=2");
             toServer.println("B=1");
@@ -79,30 +77,18 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
             toServer.println("pwm.setup(G, 100, 1)");
             toServer.println("pwm.setup(B, 100, 1)");
 
-
-// myAwesomeTextView.setText("Client received: " + line + " from Server");
-
-
-
-
         } catch(UnknownHostException ex) { ex.printStackTrace(); }
         catch(IOException e){ e.printStackTrace(); }
 
-
-
-
-    return rootView;
+        return rootView;
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
         progressValue=progress;
-// change progress text label with current seekbar value
         textProgress.setText("The value is: "+progress);
-// change action text label to changing
         textAction.setText("changing");
-
     }
 
     @Override
@@ -113,6 +99,7 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+
         textAction.setText("ended tracking touch");
 
         int val =(progressValue*1023)/100;
@@ -122,6 +109,5 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
             toServer.println("pwm.setduty(B,"+val+")");
         else if(seekBar.getId()==R.id.seekBarRed)
             toServer.println("pwm.setduty(R,"+val+")");
-
     }
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ESP_Led.iml" filepath="$PROJECT_DIR$/ESP_Led.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ESP_LED.iml" filepath="$PROJECT_DIR$/ESP_LED.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
