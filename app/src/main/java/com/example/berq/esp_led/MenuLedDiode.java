@@ -1,7 +1,5 @@
 package com.example.berq.esp_led;
 
-import android.app.Activity;
-import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +10,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
@@ -25,11 +18,7 @@ import java.net.UnknownHostException;
  */
 public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
-    int serverPort = 2323;
-    InetAddress host;
-    PrintWriter toServer;
-    BufferedReader fromServer;
-    Socket socket;
+    ConnectorESP espConnection;
 
     private int progressValue=0;
 
@@ -51,42 +40,36 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         textProgress = (TextView)rootView.findViewById(R.id.textViewProgress);
         textAction = (TextView)rootView.findViewById(R.id.textViewAction);
 
-        //setup Policy
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+
 
         //setup ESP connection
         try{
-            host = InetAddress.getByName("192.168.150.10");
-            System.out.println("Connecting to server on port " + serverPort);
-            socket = new Socket(host,serverPort);
-
-            System.out.println("Just connected to " +
-                    socket.getRemoteSocketAddress());
-
-            toServer = new PrintWriter(socket.getOutputStream(), true);
-            fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            String line = fromServer.readLine();
-            System.out.println("Client received: " + line + " from Server");
-
-            //setup esp variables
-            toServer.println("R=3");
-            toServer.println("G=2");
-            toServer.println("B=1");
-            toServer.println("pwm.setup(R, 100, 1)");
-            toServer.println("pwm.setup(G, 100, 1)");
-            toServer.println("pwm.setup(B, 100, 1)");
+            espConnection=new ConnectorESP("192.168.150.10");
 
         } catch(UnknownHostException ex) {
             Toast.makeText(getActivity(), "Filed - UnknownHostException", Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
-        catch(IOException e){
+        catch (InterruptedException e) {
+            Toast.makeText(getActivity(), "Filed - InterruptedException", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        catch(IOException e) {
             Toast.makeText(getActivity(), "Filed - IOException", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
+        //setup esp variables
+        if(espConnection.getServerHandler() != null) {
+            espConnection.getServerHandler().println("R=3");
+            espConnection.getServerHandler().println("G=2");
+            espConnection.getServerHandler().println("B=1");
+            espConnection.getServerHandler().println("pwm.setup(R, 100, 1)");
+            espConnection.getServerHandler().println("pwm.setup(G, 100, 1)");
+            espConnection.getServerHandler().println("pwm.setup(B, 100, 1)");
+        }
+        else
+            Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
         return rootView;
     }
 
@@ -110,15 +93,15 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         textAction.setText("ended tracking touch");
 
         int val =(progressValue*1023)/100;
-        if(toServer!= null) {
+        if(espConnection.getServerHandler() != null) {
             if (seekBar.getId() == R.id.seekBarGreen)
-                toServer.println("pwm.setduty(G," + val + ")");
+                espConnection.getServerHandler().println("pwm.setduty(G," + val + ")");
             else if (seekBar.getId() == R.id.seekBarBlue)
-                toServer.println("pwm.setduty(B," + val + ")");
+                espConnection.getServerHandler().println("pwm.setduty(B," + val + ")");
             else if (seekBar.getId() == R.id.seekBarRed)
-                toServer.println("pwm.setduty(R," + val + ")");
+                espConnection.getServerHandler().println("pwm.setduty(R," + val + ")");
         }
         else
-            Toast.makeText(getActivity(), "Filed to send message to ESP", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
     }
 }

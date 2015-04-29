@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 /**
  * Created by berq on 15.04.15.
  */
+
+
+
+
 public class Detector extends Fragment {
 
     View rootView;
@@ -19,5 +23,11 @@ public class Detector extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.detector, container, false);
         return rootView;
+    }
+
+
+    private void establishFunctions(){
+
+
     }
 }
