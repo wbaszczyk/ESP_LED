@@ -81,7 +81,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 
 
-        espConnection=new ConnectorESP("192.168.150.10");
+        espConnection=new ConnectorESP("192.168.1.14");
         //setup ESP connection
         try{
             espConnection.establishConnection();
