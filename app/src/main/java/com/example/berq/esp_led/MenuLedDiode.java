@@ -39,32 +39,20 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
 
 
         //setup esp variables
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    establish_PWM();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        thread.start();
+//        Thread thread = new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    establish_PWM();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//        thread.start();
         return rootView;
     }
 
-    private void establish_PWM() throws InterruptedException {
-
-        if (ConnectorESP.isConnectionEstablished()) {
-            ConnectorESP.sendESPCommand("R=3");
-            ConnectorESP.sendESPCommand("G=2");
-            ConnectorESP.sendESPCommand("B=1");
-            ConnectorESP.sendESPCommand("pwm.setup(R, 100, 1)");
-            ConnectorESP.sendESPCommand("pwm.setup(G, 100, 1)");
-            ConnectorESP.sendESPCommand("pwm.setup(B, 100, 1)");
-        }
-        //else Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

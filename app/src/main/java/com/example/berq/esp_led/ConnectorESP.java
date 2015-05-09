@@ -50,7 +50,7 @@ public class ConnectorESP {
 
     public static boolean isConnectionEstablished(){
 
-        return socket!=null;
+        return  toServer != null;
     }
     public void setPort(int portNumber){
 
@@ -59,8 +59,10 @@ public class ConnectorESP {
 
     public static void sendESPCommand(String commandLua) throws InterruptedException {
 
-        getServerHandler().println(commandLua);
-        Thread.sleep(400);
+//        if(isConnectionEstablished()) {
+            getServerHandler().println(commandLua);
+            Thread.sleep(400);
+//        }
     }
 
     public static PrintWriter getServerHandler(){

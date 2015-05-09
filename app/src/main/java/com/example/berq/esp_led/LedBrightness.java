@@ -55,7 +55,7 @@ public class LedBrightness extends ActionBarActivity
 
         switch (position){
             case 0:
-                objFragment=new MenuLedDiode();
+                objFragment=new InitESP();
                 break;
             case 1:
                 objFragment=new Detector();
