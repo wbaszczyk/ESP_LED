@@ -91,8 +91,8 @@ public class InitESP extends Fragment implements Button.OnClickListener {
     private void establish_PWM() throws InterruptedException {
 
 //        if (ConnectorESP.isConnectionEstablished()) {
-            ConnectorESP.sendESPCommand("R=3");
-            ConnectorESP.sendESPCommand("G=2");
+            ConnectorESP.sendESPCommand("R=2");
+            ConnectorESP.sendESPCommand("G=3");
             ConnectorESP.sendESPCommand("B=1");
             ConnectorESP.sendESPCommand("pwm.setup(R, 100, 1)");
             ConnectorESP.sendESPCommand("pwm.setup(G, 100, 1)");
@@ -139,35 +139,39 @@ public class InitESP extends Fragment implements Button.OnClickListener {
             //setup I2C iterupt function
 
 
-//            ConnectorESP.sendESPCommand("a = {}");
-//            ConnectorESP.sendESPCommand("is4=0");
-//            ConnectorESP.sendESPCommand("time = 0");
-//            ConnectorESP.sendESPCommand("div_time = 0");
-//            ConnectorESP.sendESPCommand("gpio.mode(7,gpio.INT,gpio.PULLUP)");
-//            ConnectorESP.sendESPCommand("function pin1cb(level)");
-//            ConnectorESP.sendESPCommand("div_time=tmr.now()-time");
-////            ConnectorESP.sendESPCommand("print(div_time)");
-//            ConnectorESP.sendESPCommand("time = tmr.now()");
-//
-//
-//            ConnectorESP.sendESPCommand("if div_time <290000 then");
-//            ConnectorESP.sendESPCommand("table.insert(a, div_time)");
-//            ConnectorESP.sendESPCommand("is4 = is4+1");
-//            ConnectorESP.sendESPCommand("else is4=0 a={} end");
-//            ConnectorESP.sendESPCommand("if is4==4 then");
-//
-//            ConnectorESP.sendESPCommand("if diode == 0 then pwm.setduty(G," + 1023 + ") diode =1");
-//            ConnectorESP.sendESPCommand("else pwm.setduty(G," + 0 + ") diode =0 end");
-//
+            ConnectorESP.sendESPCommand("a = {}");
+            ConnectorESP.sendESPCommand("is4=0");
+            ConnectorESP.sendESPCommand("time = 0");
+            ConnectorESP.sendESPCommand("div_time = 0");
+            ConnectorESP.sendESPCommand("gpio.mode(7,gpio.INT,gpio.PULLUP)");
+        ConnectorESP.sendESPCommand("write_reg(0x50,0x22,0xa7)");
+        ConnectorESP.sendESPCommand("write_reg(0x50,0x27,0x01)");
+        ConnectorESP.sendESPCommand("write_reg(0x50,0x21,0x01)");
+
+            ConnectorESP.sendESPCommand("function pin1cb(level)");
+            ConnectorESP.sendESPCommand("div_time=tmr.now()-time");
+//            ConnectorESP.sendESPCommand("print(div_time)");
+            ConnectorESP.sendESPCommand("time = tmr.now()");
+
+
+            ConnectorESP.sendESPCommand("if div_time <290000 then");
+            ConnectorESP.sendESPCommand("table.insert(a, div_time)");
+            ConnectorESP.sendESPCommand("is4 = is4+1");
+            ConnectorESP.sendESPCommand("else is4=0 a={} end");
+            ConnectorESP.sendESPCommand("if is4==4 then");
+
+            ConnectorESP.sendESPCommand("if diode == 0 then pwm.setduty(G," + 1023 + ") diode =1");
+            ConnectorESP.sendESPCommand("else pwm.setduty(G," + 0 + ") diode =0 end");
+
 //            ConnectorESP.sendESPCommand("for k,v in pairs(a) do print(k,v) end ");
-//            ConnectorESP.sendESPCommand("is4=0");
-//            ConnectorESP.sendESPCommand("a={}");
-//            ConnectorESP.sendESPCommand("end");
+            ConnectorESP.sendESPCommand("is4=0");
+            ConnectorESP.sendESPCommand("a={}");
+            ConnectorESP.sendESPCommand("end");
 //
 //
-//            ConnectorESP.sendESPCommand("tmr.delay(80000)");
-//            ConnectorESP.sendESPCommand("write_reg(0x50,0x00,0x00)");
-//            ConnectorESP.sendESPCommand("end");
+            ConnectorESP.sendESPCommand("tmr.delay(80000)");
+            ConnectorESP.sendESPCommand("write_reg(0x50,0x00,0x00)");
+            ConnectorESP.sendESPCommand("end");
 
 
 
@@ -212,6 +216,8 @@ public class InitESP extends Fragment implements Button.OnClickListener {
         ConnectorESP.sendESPCommand("end");
         ConnectorESP.sendESPCommand("return r * 1023 ,g * 1023, b * 1023, a * 1023 end");
 
+        ConnectorESP.sendESPCommand("tmr_touch_id=0");
+        ConnectorESP.sendESPCommand("trig_proximity_port=7");
 
         ConnectorESP.sendESPCommand("function touch_pwm()");
         ConnectorESP.sendESPCommand("reg_val =string.byte(read_reg(0x50,0x10))");

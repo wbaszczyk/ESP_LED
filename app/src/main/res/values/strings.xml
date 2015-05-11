@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ESP_Led</string>
 
-    <string name="title_section1">Led brightness</string>
+    <string name="title_section1">Initialization</string>
     <string name="title_section2">Detector</string>
     <string name="title_section3">Led brightness</string>
 

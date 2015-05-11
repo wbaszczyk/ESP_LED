@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,4 +12,60 @@
         android:text="Detektor zbliżeniowy"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal" />
+
+    <RadioGroup
+        android:id="@+id/radios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radioProximity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="proximity"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioTouch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Touch" />
+        <RadioButton
+            android:id="@+id/radioOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Off" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sensitivity"
+        android:id="@+id/textView6"
+        android:layout_gravity="center_horizontal" />
+
+    <SeekBar android:id="@+id/seekBarSensitivity" android:max="7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:longClickable="true"></SeekBar>
+
+    <Button
+        android:id="@+id/btnDisplay"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.27" />
+
+    <Button
+        android:id="@+id/buttonCalibration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calibration"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.27" />
 </LinearLayout>
