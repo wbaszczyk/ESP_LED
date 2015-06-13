@@ -91,9 +91,9 @@ public class InitESP extends Fragment implements Button.OnClickListener {
     private void establish_PWM() throws InterruptedException {
 
 //        if (ConnectorESP.isConnectionEstablished()) {
-            ConnectorESP.sendESPCommand("R=2");
-            ConnectorESP.sendESPCommand("G=3");
-            ConnectorESP.sendESPCommand("B=1");
+            ConnectorESP.sendESPCommand("R=1");
+            ConnectorESP.sendESPCommand("G=8");
+            ConnectorESP.sendESPCommand("B=2");
             ConnectorESP.sendESPCommand("pwm.setup(R, 100, 1)");
             ConnectorESP.sendESPCommand("pwm.setup(G, 100, 1)");
             ConnectorESP.sendESPCommand("pwm.setup(B, 100, 1)");
@@ -108,7 +108,7 @@ public class InitESP extends Fragment implements Button.OnClickListener {
             //establish I2C vars
             ConnectorESP.sendESPCommand("id=0");
             ConnectorESP.sendESPCommand("sda=6");
-            ConnectorESP.sendESPCommand("scl=5");
+            ConnectorESP.sendESPCommand("scl=7");
             //setup I2C
             ConnectorESP.sendESPCommand("i2c.setup(id,sda,scl,i2c.SLOW)");
             //setup I2C read function
@@ -143,7 +143,7 @@ public class InitESP extends Fragment implements Button.OnClickListener {
             ConnectorESP.sendESPCommand("is4=0");
             ConnectorESP.sendESPCommand("time = 0");
             ConnectorESP.sendESPCommand("div_time = 0");
-            ConnectorESP.sendESPCommand("gpio.mode(7,gpio.INT,gpio.PULLUP)");
+            ConnectorESP.sendESPCommand("gpio.mode(5,gpio.INT,gpio.PULLUP)");
         ConnectorESP.sendESPCommand("write_reg(0x50,0x22,0xa7)");
         ConnectorESP.sendESPCommand("write_reg(0x50,0x27,0x01)");
         ConnectorESP.sendESPCommand("write_reg(0x50,0x21,0x01)");
@@ -217,7 +217,7 @@ public class InitESP extends Fragment implements Button.OnClickListener {
         ConnectorESP.sendESPCommand("return r * 1023 ,g * 1023, b * 1023, a * 1023 end");
 
         ConnectorESP.sendESPCommand("tmr_touch_id=0");
-        ConnectorESP.sendESPCommand("trig_proximity_port=7");
+        ConnectorESP.sendESPCommand("trig_proximity_port=5");
 
         ConnectorESP.sendESPCommand("function touch_pwm()");
         ConnectorESP.sendESPCommand("reg_val =string.byte(read_reg(0x50,0x10))");
