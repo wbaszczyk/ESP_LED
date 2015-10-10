@@ -90,7 +90,7 @@ public class Detector extends Fragment  implements SeekBar.OnSeekBarChangeListen
 
                     try {
                         ConnectorESP.sendESPCommand("gpio.mode(tmr_touch_port, gpio.INPUT)");
-                        ConnectorESP.sendESPCommand("tmr.alarm(trig_proximity_id, 50, 1, touch_pwm)");
+                        ConnectorESP.sendESPCommand("tmr.alarm(trig_proximity_id, 20, 1, touch_pwm)");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
