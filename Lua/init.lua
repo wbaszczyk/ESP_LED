@@ -1,7 +1,7 @@
 
-R=1
+R=2
 G=8
-B=2
+B=1
 pwm.setup(R, 100, 1)
 pwm.setup(G, 100, 1)
 pwm.setup(B, 100, 1)
@@ -62,8 +62,8 @@ function pin1cb(level)
 		else is4=0 a={} end
 		if is4==4 then
 
-			if diode == 0 then pwm.setduty(G," + 1023 + ") diode =1
-				else pwm.setduty(G," + 0 + ") diode =0 end
+			if diode == 0 then pwm.setduty(G,1023) diode =1
+				else pwm.setduty(G,0) diode =0 end
 
 				is4=0
 				a={}
@@ -76,21 +76,26 @@ function pin1cb(level)
 --  ====================================================
 
 --  ====================================================
-function hsvToRgb (h, s, v, a)
-	local r, g, b
-	local i = math.floor(h * 6);
-	local f = h * 6 - i;
-	local p = v * (1 - s);
-	local q = v * (1 - f * s);
-	local t = v * (1 - (1 - f) * s);
-	i = i % 6
-	if i == 0 then r, g, b = v, t, p 
-	elseif i==1 then r, g, b = q, v, p 
-	elseif i==2 then r, g, b = p, v, t 
-	elseif i==3 then r, g, b = p, q, v 
-	elseif i==4 then r, g, b = t, p, v 
-	elseif i==5 then r, g, b = v, p, q end
-	return r * 1023 ,g * 1023, b * 1023, a * 1023 
+function hsvToRgb(h, s, v, a)
+  local r, g, b
+
+  local i = math.floor(h * 6);
+  local f = h * 6 - i;
+  local p = v * (1 - s);
+  local q = v * (1 - f * s);
+  local t = v * (1 - (1 - f) * s);
+
+  i = i % 6
+
+  if i == 0 then r, g, b = v, t, p
+  elseif i == 1 then r, g, b = q, v, p
+  elseif i == 2 then r, g, b = p, v, t
+  elseif i == 3 then r, g, b = p, q, v
+  elseif i == 4 then r, g, b = t, p, v
+  elseif i == 5 then r, g, b = v, p, q
+  end
+
+  return r * 1023, g * 1023, b * 1023, a * 1023
 end
 
 trig_proximity_id=0
@@ -104,11 +109,8 @@ function touch_pwm()
 		g=0 
 	end
 	pwm.setduty(G,g)
-	print(g)
 	pwm.setduty(R,r)
-	print(r)
 	pwm.setduty(B,b) 
-	print(b)
 end
 --  ====================================================
 
