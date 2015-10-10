@@ -89,8 +89,8 @@ public class Detector extends Fragment  implements SeekBar.OnSeekBarChangeListen
                 if(radioSelectionButton.getId() == R.id.radioProximity){
 
                     try {
-                        ConnectorESP.sendESPCommand("gpio.mode(tmr_touch_id, gpio.INPUT)");
-                        ConnectorESP.sendESPCommand("tmr.alarm(tmr_touch_id, 50, 1, touch_pwm)");
+                        ConnectorESP.sendESPCommand("gpio.mode(trig_proximity_id, gpio.INPUT)");
+                        ConnectorESP.sendESPCommand("tmr.alarm(trig_proximity_id, 50, 1, touch_pwm)");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -99,9 +99,9 @@ public class Detector extends Fragment  implements SeekBar.OnSeekBarChangeListen
 
                     try {
 
-                        ConnectorESP.sendESPCommand("tmr.stop(tmr_touch_id)");
-                        ConnectorESP.sendESPCommand("gpio.mode(trig_proximity_port,gpio.INT,gpio.PULLUP)");
-                        ConnectorESP.sendESPCommand("gpio.trig(trig_proximity_port, \"down\",pin1cb)");
+                        ConnectorESP.sendESPCommand("tmr.stop(trig_proximity_id)");
+                        ConnectorESP.sendESPCommand("gpio.mode(tmr_touch_port,gpio.INT,gpio.PULLUP)");
+                        ConnectorESP.sendESPCommand("gpio.trig(tmr_touch_port, \"down\",pin1cb)");
                         ConnectorESP.sendESPCommand("write_reg(0x50,0x00,0x00)");
 
                     } catch (InterruptedException e) {
@@ -111,8 +111,8 @@ public class Detector extends Fragment  implements SeekBar.OnSeekBarChangeListen
                 else if(radioSelectionButton.getId() == R.id.radioOff){
 
                     try {
-                        ConnectorESP.sendESPCommand("tmr.stop(tmr_touch_id)");
-                        ConnectorESP.sendESPCommand("gpio.mode(tmr_touch_id, gpio.INPUT)");
+                        ConnectorESP.sendESPCommand("tmr.stop(trig_proximity_id)");
+                        ConnectorESP.sendESPCommand("gpio.mode(trig_proximity_id, gpio.INPUT)");
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
