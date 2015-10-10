@@ -61,30 +61,31 @@ public class InitESP extends Fragment implements Button.OnClickListener {
             Toast.makeText(getActivity(), "Filed - IOException", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-        long startTime = System.currentTimeMillis();
-        while(!espConnection.isConnectionEstablished())
-        {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(System.currentTimeMillis() - startTime>3000) {
-                Toast.makeText(getActivity(), "Cant connect", Toast.LENGTH_SHORT).show();
-                break;
-            }
-        }
-
-        if (ConnectorESP.isConnectionEstablished()) {
-            try {
-                establish_PWM();
-                establish_I2C();
-                establish_hsv_function();
-                Toast.makeText(getActivity(), "done.", Toast.LENGTH_SHORT).show();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        Toast.makeText(getActivity(), "done.", Toast.LENGTH_SHORT).show();
+//        long startTime = System.currentTimeMillis();
+//        while(!espConnection.isConnectionEstablished())
+//        {
+//            try {
+//                Thread.sleep(200);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            if(System.currentTimeMillis() - startTime>3000) {
+//                Toast.makeText(getActivity(), "Cant connect", Toast.LENGTH_SHORT).show();
+//                break;
+//            }
+//        }
+//
+//        if (ConnectorESP.isConnectionEstablished()) {
+//            try {
+//                establish_PWM();
+//                establish_I2C();
+//                establish_hsv_function();
+//                Toast.makeText(getActivity(), "done.", Toast.LENGTH_SHORT).show();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 
     }
