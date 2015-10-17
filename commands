@@ -1,2 +1,7 @@
 sudo ./esptool.py --port /dev/ttyUSB0 write_flash 0x00000 nodemcu_float_0.9.6-dev_20150704.bin
 sudo ./luatool.py -p /dev/ttyUSB0 -f init.lua -t init.lua
+
+łączenie do sieci:
+wifi.setmode(wifi.STATION)
+wifi.sta.config("esp2323", "asd12345")
+print(wifi.sta.getip())
