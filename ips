@@ -1,3 +1,37 @@
-1. 192.168.43.43 (nie działa dotyk)
-2. 192.168.43.22 (tylko proximity działa - niebieski)
+1. 192.168.43.43 (nie działa touch i proximity)
+2. 192.168.43.22 (nie działa touch)
 3. 192.168.43.213 działa
+
+
+pwm.setduty(G,1000)
+print(wifi.sta.status())
+wifi.sta.config("esp2323", "asd12345")
+wifi.sta.config("wifi-ma", "asd12345")
+wifi.sta.connect()
+wifi.sta.config("wifi-ma", "asd12345", 0)
+wifi.sta.connect()
+print(wifi.sta.getip())
+
+ssid, password, bssid_set, bssid=wifi.sta.getconfig()
+print("\nCurrent Station configuration:\nSSID : "..ssid
+.."\nPassword  : "..password
+.."\nBSSID_set  : "..bssid_set
+.."\nBSSID: "..bssid.."\n")
+ssid, password, bssid_set, bssid=nil, nil, nil, nil
+
+
+function listap(t)
+for k,v in pairs(t) do
+print(k.." : "..v)
+end
+end
+wifi.sta.getap(listap)
+
+function listap(t) -- (SSID : Authmode, RSSI, BSSID, Channel)
+print("\n"..string.format("%32s","SSID").."\tBSSID\t\t\t\t  RSSI\t\tAUTHMODE\tCHANNEL")
+for ssid,v in pairs(t) do
+local authmode, rssi, bssid, channel = string.match(v, "([^,]+),([^,]+),([^,]+),([^,]+)")
+print(string.format("%32s",ssid).."\t"..bssid.."\t  "..rssi.."\t\t"..authmode.."\t\t\t"..channel)
+end
+end
+wifi.sta.getap(listap)

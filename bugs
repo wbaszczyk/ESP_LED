@@ -1,0 +1,5 @@
+1. Touch nie działa na układzie 2: 
+INTERRUPT REPEAT RATE jest ustawiony na 280ms, czujnik nr 2 miał ten czas 300ns. funkcja od przerwań miała limit 290ms. Limit został zmieniony na 310ms
+
+1. Touch nie zawsze działa na układzie 3: 
+rzeczywisty czas INTERRUPT REPEAT RATE 290ms. Próg w funkcji 290ms - jes na granicy i nie zawsze działa. Limit został zmieniony na 310ms

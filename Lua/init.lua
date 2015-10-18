@@ -56,7 +56,7 @@ function pin1cb(level)
 	time = tmr.now()
 
 
-	if div_time <290000 then
+	if div_time <310000 then
 		table.insert(a, div_time)
 		is4 = is4+1
 		else is4=0 a={} end

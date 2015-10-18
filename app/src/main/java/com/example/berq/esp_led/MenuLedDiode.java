@@ -76,15 +76,19 @@ public class MenuLedDiode extends Fragment implements SeekBar.OnSeekBarChangeLis
         int val = (progressValue * 1023) / 100;
 
 
+        try {
         if (ConnectorESP.isConnectionEstablished()) {
             if (seekBar.getId() == R.id.seekBarGreen)
-                ConnectorESP.getServerHandler().println("pwm.setduty(G," + val + ")");
+                ConnectorESP.sendESPCommand("pwm.setduty(G," + val + ")");
             else if (seekBar.getId() == R.id.seekBarBlue)
-                ConnectorESP.getServerHandler().println("pwm.setduty(B," + val + ")");
+                ConnectorESP.sendESPCommand("pwm.setduty(B," + val + ")");
             else if (seekBar.getId() == R.id.seekBarRed)
-                ConnectorESP.getServerHandler().println("pwm.setduty(R," + val + ")");
+                ConnectorESP.sendESPCommand("pwm.setduty(R," + val + ")");
         } else
             Toast.makeText(getActivity(), "Filed to get server handler", Toast.LENGTH_SHORT).show();
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -12,26 +12,32 @@
         android:id="@+id/textViewAction"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"></TextView>
+        android:layout_below="@+id/seekBarBlue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp"></TextView>
     <SeekBar android:id="@+id/seekBarGreen" android:max="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"></SeekBar>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+        android:layout_marginLeft="@dimen/abc_action_bar_content_inset_material"></SeekBar>
     <SeekBar android:id="@+id/seekBarRed" android:max="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"></SeekBar>
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/abc_action_bar_content_inset_material"></SeekBar>
     <SeekBar android:id="@+id/seekBarBlue" android:max="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"></SeekBar>
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/abc_action_bar_content_inset_material"></SeekBar>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,6 +45,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Change Red color"
         android:id="@+id/textView4"
+        android:layout_marginTop="24dp"
         android:layout_below="@+id/seekBarGreen"
         android:layout_centerHorizontal="true" />
 
@@ -59,5 +66,7 @@
         android:text="Change Blue color"
         android:id="@+id/textView3"
         android:layout_below="@+id/seekBarRed"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_marginTop="26dp" />
 </RelativeLayout>

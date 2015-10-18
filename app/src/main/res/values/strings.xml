@@ -11,4 +11,8 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="chk_plate_1">192.168.43.43</string>
+    <string name="chk_plate_2">192.168.43.22</string>
+    <string name="chk_plate_3">192.168.43.213</string>
 </resources>

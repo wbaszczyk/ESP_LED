@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,6 +29,7 @@ public class InitESP extends Fragment implements Button.OnClickListener {
     private View rootView;
     private TextView ipAdd;
     private Button connetcbtn;
+    private List<CheckBox> chkPlate;
 
     @Nullable
     @Override
@@ -35,6 +39,11 @@ public class InitESP extends Fragment implements Button.OnClickListener {
         ipAdd = (TextView) rootView.findViewById(R.id.ipAdd); // make seekbar object
 
         connetcbtn = (Button) rootView.findViewById(R.id.connectbtn);
+
+        chkPlate = new ArrayList<>();
+        chkPlate.add((CheckBox) rootView.findViewById(R.id.chkPlate1));
+        chkPlate.add((CheckBox) rootView.findViewById(R.id.chkPlate2));
+        chkPlate.add((CheckBox) rootView.findViewById(R.id.chkPlate3));
         connetcbtn.setOnClickListener(this);
 
         return rootView;
@@ -44,9 +53,19 @@ public class InitESP extends Fragment implements Button.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        espConnection=new ConnectorESP(ipAdd.getText().toString());
+        List<String> ips = new ArrayList<>();
+        for(CheckBox checkBox : chkPlate){
+            if(checkBox.isChecked()){
+                ips.add(checkBox.getText().toString());
+            }
+        }
+        espConnection = new ConnectorESP(ips);
+//        espConnection=new ConnectorESP(ipAdd.getText().toString());
         //setup ESP connection
         try{
+//            for (ConnectorESP connectorESP : espConnections){
+//                connectorESP.establishConnection();
+//            }
             espConnection.establishConnection();
 
         } catch(UnknownHostException ex) {
